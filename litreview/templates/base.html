@@ -6,5 +6,8 @@
     <body>
         <h1>Welcome to LITReview</h1>
         {% block content %}{% endblock content %}
+        {% if user.is_authenticated %}
+            <p>Currently, You are logged in as {{ request.user }}. Click here to <a href="{% url 'logout' %}"> logout</a> </p>
+        {% endif %}
     </body>
 </html>
