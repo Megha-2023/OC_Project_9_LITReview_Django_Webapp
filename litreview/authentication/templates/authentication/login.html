@@ -2,6 +2,10 @@
 <p>{{ message }}</p>
 <form method="post">
   {{ form.as_p }} {% csrf_token %}
-  <button type="'submit">SUBMIT</button>
+  <button type="'submit">Log In</button>
 </form>
+<p>
+  New User? Sign Up Now!
+  <button onclick="location.href='{% url 'signup' %}'">Sign Up</button>
+</p>
 {% endblock content %}
