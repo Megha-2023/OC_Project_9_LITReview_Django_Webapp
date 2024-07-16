@@ -1,3 +1,7 @@
-{% extends 'base.html' %} {% block content %}
-<p>Here is your FEED.......</p>
-{% endblock content %}
+{% extends 'feed/feed_base.html' %} 
+{% block content %} 
+{% if user.is_authenticated %}
+<p>{{request.user}}, Here is your FEED.......</p>
+<button onclick="location.href='{% url 'request_review' %}'">Request a Review</button>
+<button>Post a Review</button>
+{% endif %} {% endblock content %}

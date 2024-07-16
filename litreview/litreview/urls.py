@@ -13,5 +13,6 @@ auth_patterns = [path('logout/', authentication.views.logout_user, name='logout'
 
 urlpatterns = [
     path('', feed.views.feed_home_page, name='home'),
-    path('auth/', include(auth_patterns))
+    path('auth/', include(auth_patterns)),
+    path('ticket/', feed.views.request_review_ticket, name='request_review')
 ]

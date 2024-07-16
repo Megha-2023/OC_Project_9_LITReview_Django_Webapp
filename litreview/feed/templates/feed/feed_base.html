@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>LITReview</title>
+        </title>
+    </head>
+    <body>
+        <h1>LITReview</h1>
+        <nav>
+            <a href="">Feed</a>
+            <a href="">Posts</a>
+            <a href="">Following</a>
+            <a href="{% url 'logout' %}">Log Out</a>
+          </nav>
+          {% block content %}{% endblock content %}
+    </body>
+</html>
