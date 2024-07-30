@@ -2,6 +2,16 @@
 {% block content %} 
 {% if user.is_authenticated %}
 <p>{{request.user}}, Here is your FEED.......</p>
-<button onclick="location.href='{% url 'request_review' %}'">Request a Review</button>
+<button onclick="location.href='{% url 'create_ticket' %}'">Request a Review</button>
 <button>Post a Review</button>
-{% endif %} {% endblock content %}
+{% endif %} 
+    {% for ticket in tickets %}
+    <p>
+        {{ ticket.title }} by user {{ ticket.user_id }}
+        At {{ ticket.time_created }}
+        {% if ticket.image %}
+            <img src="media/{{ ticket.image }}" alt="">
+        {% endif %}
+    </p>
+    {% endfor %}
+{% endblock content %}
