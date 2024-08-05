@@ -1,0 +1,19 @@
+{% extends 'base.html' %} 
+{% block content %} 
+{% if user.is_authenticated %}
+    <p>{{request.user}}, Welcome.......</p>
+    <button onclick="location.href='{% url 'create_ticket' %}'">Request a Review</button>
+    <button onclick="location.href='{% url 'create_review' %}'">Post a Review</button>
+
+    {% for ticket in tickets %}
+    <div>
+        {{ ticket.title }} by {{ ticket.user.username }}
+        At {{ ticket.time_created }}
+        {% if ticket.image %}
+            <img src="media/{{ ticket.image }}" alt="" class="book-img">
+        {% endif %}
+        <p>{{ ticket.description }}</p>
+    </div>
+    {% endfor %}
+    {% endif %} 
+{% endblock content %}

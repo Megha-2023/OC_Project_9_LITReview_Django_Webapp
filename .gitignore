@@ -2,4 +2,4 @@ djenv/
 __pycache__
 litreview/__pycache__/
 authentication/__pycache__/
-feed/__pycache__/
+blog/__pycache__/

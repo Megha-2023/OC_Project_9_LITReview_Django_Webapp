@@ -1,10 +1,9 @@
 from django.conf import settings
-from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView
 import authentication.views
-import feed.views
+import blog.views
 
 auth_patterns = [path('logout/', authentication.views.logout_user, name='logout'),
                  path('signup/', authentication.views.signup_page, name='signup'),
@@ -13,10 +12,14 @@ auth_patterns = [path('logout/', authentication.views.logout_user, name='logout'
                     redirect_authenticated_user=True),
                     name='login')]
 
+blog_patterns = [path('ticket/', blog.views.create_ticket, name='create_ticket'),
+                 path('review/', blog.views.create_review, name='create_review')]
+
+
 urlpatterns = [
-    path('', feed.views.feed_home_page, name='home'),
+    path('', blog.views.home_page, name='home'),
     path('auth/', include(auth_patterns)),
-    path('ticket/', feed.views.create_ticket, name='create_ticket')
+    path('blog/', include(blog_patterns))
 ]
 
 if settings.DEBUG:
