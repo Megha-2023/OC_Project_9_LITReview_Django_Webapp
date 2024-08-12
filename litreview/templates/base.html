@@ -9,9 +9,9 @@
         <h1>LITReview</h1>
         {% if user.is_authenticated %}
         <nav>
-            <a href="">Feed</a>
+            <a href="{% url 'home' %}">Feed</a>
             <a href="">Posts</a>
-            <a href="">Following</a>
+            <a href="{% url 'follow_users' %}">Following</a>
             <a href="{% url 'logout' %}">Log Out</a>
           </nav>
         {% endif %}
