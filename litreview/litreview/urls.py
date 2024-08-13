@@ -13,7 +13,7 @@ auth_patterns = [path('logout/', authentication.views.logout_user, name='logout'
                     name='login')]
 
 blog_patterns = [path('ticket/', blog.views.create_ticket, name='create_ticket'),
-                 path('review/', blog.views.create_review, name='create_review'),
+                 path('ticket/<str:post_review>/', blog.views.create_ticket, name='create_ticket'),
                  path('follow_users/', blog.views.follow_users, name='follow_users'),
                  path('unfollow_user/<str:user_name>/', blog.views.unfollow_user, name='unfollow_user')]
 

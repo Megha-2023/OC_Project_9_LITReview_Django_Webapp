@@ -1,19 +1,39 @@
 {% extends 'base.html' %} 
+{% load blog_extras %}
 {% block content %} 
 {% if user.is_authenticated %}
-    <p>{{request.user}}, Welcome.......</p>
+    
+    <h2>Your Feed</h2>
     <button onclick="location.href='{% url 'create_ticket' %}'">Request a Review</button>
-    <button onclick="location.href='{% url 'create_review' %}'">Post a Review</button>
+    <button onclick="location.href='{% url 'create_ticket' post_review=True %}'">Post a Review</button>
 
-    {% for ticket in tickets %}
-    <div>
-        {{ ticket.title }} by {{ ticket.user.username }}
-        At {{ ticket.time_created }}
-        {% if ticket.image %}
-            <img src="media/{{ ticket.image }}" alt="" class="book-img">
+    <div class="grid-container">
+    {% for instance in posts %}
+        {% if instance|model_type == 'Ticket' %}
+            <div class="post">
+                <hr>
+                <h4>{% get_poster_display instance.user %} requested a review. </h4>
+                <h4>{{ instance.title }}</h4>
+                <p>{{ instance.time_created }}</p>
+                {% if instance.image %}
+                    <img src="media/{{ instance.image }}" alt="" class="book-img">
+                {% endif %}
+                
+                <p>{{ instance.description }}</p>
+                {% if instance in not_reviewed_by_user %}
+                    <button type="submit">Post a Review</button>
+                {% endif %}
+            </div>
+        {% elif instance|model_type == 'Review' %}
+            <div class="post">
+                <hr>
+                <h4>{% get_poster_display instance.user %} posted a review</h4>
+                <p>{{ instance.time_created }}</p>
+                <p>{{ instance.headline }} - {{ instance.rating }}</p>
+                <p>{{ instance.body }}</p>
+            </div>    
         {% endif %}
-        <p>{{ ticket.description }}</p>
     </div>
     {% endfor %}
-    {% endif %} 
+{% endif %} 
 {% endblock content %}

@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h2>Create a Ticket</h2>
+{% if post_review == 'True' %}
+    <h2>Create a Review</h2>
+{% else %}
+    <h2>Create a Ticket</h2>
+{% endif %}
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ ticket_form.as_p }}
+    
+    {% if post_review == 'True' %}
+        <hr>
+        <h3>Review</h3>
+        {{ review_form.as_p }}
+    {% endif %}
     <input type="submit" value="Submit">
 </form>
 

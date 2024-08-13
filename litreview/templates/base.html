@@ -12,7 +12,7 @@
             <a href="{% url 'home' %}">Feed</a>
             <a href="">Posts</a>
             <a href="{% url 'follow_users' %}">Following</a>
-            <a href="{% url 'logout' %}">Log Out</a>
+            <a href="{% url 'logout' %}">Log Out ({{request.user }})</a>
           </nav>
         {% endif %}
         {% block content %}{% endblock content %}
