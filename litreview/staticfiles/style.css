@@ -1,23 +1,31 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+@import url("https://fonts.googleapis.com/css2?family=Nova+Round&display=swap");
 body{
-    font-family: "Playfair Display", serif;
-    margin:0; padding:0;
-    overflow: hidden;
+    margin: 0 auto;
+    justify-content: center;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: "Nova Round", system-ui;
+    background-color:antiquewhite;
 }
-
-.header .header-1{
-    background:#eebcad;
+.header{
+    background-color:darksalmon;
     padding:5px;
     display: flex;
+    width: 100%;
     align-items: center;
-    justify-content: space-between;
-    border: 1px solid #3b2119 ;
+    font-size: small;
     margin-bottom: 10px;
+    border: 1px solid #3b2119 ;
 }
-.header .navbar{
-    text-align: center;
+.logo{
+    height: 70px;
+    width: 70px;
+    margin-right: 5PX;
+    margin-left: 1px;
+    border-color: dimgrey;
+    border-style: solid;
 }
 .parent{
     display: flex;
@@ -30,9 +38,35 @@ body{
     border: 2px solid black;
     width: 500px;
     text-align: center;
+    
+}
+.signup-form{
+    margin: auto;
+    border: 2px solid black;
+    width: 80%;
+    text-align: center;
+}
+h2{
+    display: inline-block;
+    color:rgb(78, 56, 31);
+    text-align: center;
+}
+button{
+    position: relative;
+    width:max-content;
+    height: 50px;
+    color: antiquewhite;
+    border-radius: 20%;
+    font-size: medium;
+    background-color:#614239;
+    font-weight: bold;
+}
+button:hover{
+    transition: all 0.3s ease 0s;
+    font-size: larger;
 }
 .child1:first-child{
-    margin-right: 50px;
+    margin-right: 30px;
 }
 .child2 {
     flex: 1;
@@ -42,43 +76,39 @@ body{
 }
 .login-form input[type="text"],
 .login-form input[type="password"] {
-  max-width:400px;
-	width: 80%;
-  line-height:3em;
-  font-family: 'Ubuntu', sans-serif;
-  margin:1em 2em;
+  width:200px;
+  /*width: 80%;*/
+  height: 30px;
   border-radius:5px;
   border:2px solid #3b2119;
+  font-family: "Nova Round", system-ui;
   outline:none;
   padding-left:10px;
 }
-.login-form input[type="button"] {
-  height:30px;
-  width:100px;
-  background:#eb8d41;
-  border:1px solid #3b2119;
-  border-radius:20px;
-  text-transform:uppercase;
-  font-family: 'Ubuntu', sans-serif;
-  cursor:pointer;
-}
-.username{
+/*.username{
     color:#301702;
     display: inline-block;
     padding:1.2rem;
-    font-size: 30px;
+    font-size: 25px;
+}*/
+.header .navbar{
+    display: inline-block;
+    padding: 0px 20px;
+    text-align: right;
+    overflow: hidden;
+    margin-left: 400px;
 }
 .header .navbar a{
     color:#301702;
     display: inline-block;
-    padding:1.2rem;
-    font-size: 30px;
+    padding-left: 30px;
+    font-size: 25px;
+    transition: all 0.3s ease 0s;
+    text-align: center;
 }
-
 .header .navbar a:hover{
-    background:var(--dark-color);
+    color:antiquewhite;
 }
-
 body.popupview {
     height: 90%;
     position: relative;
@@ -86,7 +116,6 @@ body.popupview {
     z-index: 1000;
     font-size: medium;
 }
-
 img{
     width: 125px;
     height: 170px;

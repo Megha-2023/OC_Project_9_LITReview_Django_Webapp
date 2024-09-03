@@ -6,21 +6,22 @@
     </head>
     <body>
         <header class="header">
+            <img src="{% static 'logo.png' %}" alt="" class="logo">
+            <h1>LITReview</h1>
             
-            <div class="header-1">
-                <h1>LITReview</h1>
             
-                {% if user.is_authenticated %}
-                <p class="username">Hello, {{ request.user }}</p>
-                <nav class="navbar">
-                    <a href="{% url 'home' %}">Feed</a>
-                    <a href="{% url 'own_posts' %}">Posts</a>
-                    <a href="{% url 'follow_users' %}">Following</a>
-                    <a href="{% url 'logout' %}">Log Out</a>
-                </nav>
-                {% endif %}
+            {% if user.is_authenticated %}
                 
-            </div>
+                    
+                    <nav class="navbar">
+                        <h2>Hello, {{ request.user }}</h2>
+                        <a href="{% url 'home' %}">Feed</a>
+                        <a href="{% url 'own_posts' %}">Posts</a>
+                        <a href="{% url 'follow_users' %}">Following</a>
+                        <a href="{% url 'logout' %}">LogOut</a>
+                    </nav>
+                
+            {% endif %}
         </header>
         {% block content %}{% endblock content %}
     </body>

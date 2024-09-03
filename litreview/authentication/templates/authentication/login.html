@@ -4,7 +4,6 @@
 <div class="parent">
   <div class="child1">
     <h2>Login</h2>
-    <h2>{{ message }}</h2>
     <div class="login-form">
       <form method="post">
         {{ form.as_p }} {% csrf_token %}
@@ -13,7 +12,8 @@
   </div>
   </div>
   <div class="child2">
-    <p>New User? Sign Up Now!</p>
+    <h3>New User? </h3>
+    <h2>Sign Up Now!</h2>
     <button onclick="location.href='{% url 'signup' %}'">Sign Up</button>
   </div>
 </div>
