@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Edit Your Ticket</h2>
+    <form method="post" enctype="multipart/form-data">
+        <p>Title: {{ edit_form.title}}</p>
+        <p>Description: {{ edit_form.description }}</p>
+        <p>Image:
+        {% if edit_form.image %}
+            <img src="{{ edit_form.image.url }}" alt="">
+        {% endif %}
+        </p>
+        <button onclick="">Upload New File</button>
+        {% csrf_token %}
+        <button type="submit">Save</button>
+    </form>
+    
+{% endblock content %}

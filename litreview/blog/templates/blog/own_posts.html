@@ -1,22 +1,18 @@
 {% extends 'base.html' %}
-{% load bootstrap_icons %} 
+{% load bootstrap_icons %}
 {% load blog_extras %}
 {% block content %} 
 {% if user.is_authenticated %}
-    
-    <h2>Your Feed</h2>
-    <button onclick="location.href='{% url 'create_ticket' %}'">Request a Review</button>
-    <button onclick="location.href='{% url 'create_ticket' post_review=True %}'">Post a Review</button>
 
-    <div class="grid-container">
+<h2>Your Posts</h2>
+<div class="grid-container">
     {% for instance in posts %}
         {% if instance|model_type == 'Ticket' %}
             <div class="post">
                 {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}
-                {% if instance in not_reviewed_by_user %}
-                    <button onclick="location.href='{% url 'post_review_to_ticket' tid=instance.id %}'">Post a Review</button>
-                {% endif %}
             </div>
+            <button onclick="location.href='{% url 'edit_ticket' instance.id %}'">Edit</button>
+            <button onclick="location.href='{% url 'delete_ticket' instance.id %}'">Delete</button>
         {% elif instance|model_type == 'Review' %}
             <div class="post">
                 <hr>
@@ -39,12 +35,16 @@
                     Ticket - {{ instance.ticket.user }}
                     <p>{{ instance.ticket.title }}</p>
                     {% if instance.ticket.image %}
-                        <img src="media/{{ instance.ticket.image }}" alt="" class="book-img">
+                        <img src="{{ instance.ticket.image.url }}" alt="" class="book-img">
                     {% endif %}
                 </section>
                 -----------------------------------------
+                <button onclick="">Edit</button>
+                <button onclick="">Delete</button>
         {% endif %}
-    </div>
+    
     {% endfor %}
+</div>
+    
 {% endif %} 
 {% endblock content %}

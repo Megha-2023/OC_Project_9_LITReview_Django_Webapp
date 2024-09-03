@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from itertools import chain
@@ -10,9 +10,7 @@ from authentication.models import User
 def home_page(request):
     followed_user_ids = models.UserFollows.objects.values_list('followed_user__id').filter(
                                                                             following_user=request.user)
-    
     tickets = models.Ticket.objects.filter(Q(user_id__in=followed_user_ids) | Q(user_id=request.user.id))
-
     reviews = models.Review.objects.filter(Q(user_id__in=followed_user_ids) | Q(user_id=request.user.id))
     
     not_reviewed_by_user = []
@@ -66,6 +64,26 @@ def create_ticket(request, post_review=None):
     
 
 @login_required
+def post_review_to_ticket(request, tid):
+    review_form = forms.ReviewForm()
+    if tid:
+        ticket = get_object_or_404(models.Ticket, id=tid)
+        context = {'ticket': ticket,
+                   'review_form': review_form}
+
+    if request.method == 'POST':
+        review_form = forms.ReviewForm(request.POST, request.FILES)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.user = request.user
+            review.ticket_id = ticket.id
+            review.save()
+        return redirect('home')
+    
+    return render(request, 'blog/post_review_to_ticket.html', context=context)
+
+
+@login_required
 def follow_users(request):
     # get usernames of all users who follows current user
     all_following_usernames = models.UserFollows.objects.values_list('following_user__username').filter(
@@ -115,3 +133,35 @@ def unfollow_user(request, user_name):
         models.UserFollows.objects.filter(followed_user=user_id).delete()
     
     return redirect('follow_users')
+
+
+@login_required
+def own_posts(request):
+    tickets = models.Ticket.objects.filter(Q(user_id=request.user.id))
+    reviews = models.Review.objects.filter(Q(user_id=request.user.id))
+
+    posts = sorted(
+        chain(tickets, reviews),
+        key=lambda instance: instance.time_created,
+        reverse=True
+    )
+    context = {'posts': posts}
+    
+    return render(request, 'blog/own_posts.html', context=context)
+
+
+@login_required
+def edit_ticket(request, tid):
+    ticket = get_object_or_404(models.Ticket, id=tid)
+    edit_form = forms.TicketForm(instance=ticket)
+    # delete_form = forms.DeleteTicketForm()
+    if request.method == 'POST':
+        edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
+        if edit_form.is_valid():
+            edit_form.save()
+            return redirect('own_posts')
+
+    context = {'edit_form': edit_form,
+               'ticket': ticket}
+
+    return render(request, 'blog/edit_ticket.html', context=context)

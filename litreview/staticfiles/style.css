@@ -1,0 +1,110 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body{
+    font-family: "Playfair Display", serif;
+    margin:0; padding:0;
+    overflow: hidden;
+}
+
+.header .header-1{
+    background:#eebcad;
+    padding:5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #3b2119 ;
+    margin-bottom: 10px;
+}
+.header .navbar{
+    text-align: center;
+}
+.parent{
+    display: flex;
+    margin: 0 auto;
+    width: 700px;
+    align-self: center;
+}
+.child1{
+    flex: 2;
+    border: 2px solid black;
+    width: 500px;
+    text-align: center;
+}
+.child1:first-child{
+    margin-right: 50px;
+}
+.child2 {
+    flex: 1;
+    border: 2px solid black;
+    width: 100px;
+    text-align: center;
+}
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  max-width:400px;
+	width: 80%;
+  line-height:3em;
+  font-family: 'Ubuntu', sans-serif;
+  margin:1em 2em;
+  border-radius:5px;
+  border:2px solid #3b2119;
+  outline:none;
+  padding-left:10px;
+}
+.login-form input[type="button"] {
+  height:30px;
+  width:100px;
+  background:#eb8d41;
+  border:1px solid #3b2119;
+  border-radius:20px;
+  text-transform:uppercase;
+  font-family: 'Ubuntu', sans-serif;
+  cursor:pointer;
+}
+.username{
+    color:#301702;
+    display: inline-block;
+    padding:1.2rem;
+    font-size: 30px;
+}
+.header .navbar a{
+    color:#301702;
+    display: inline-block;
+    padding:1.2rem;
+    font-size: 30px;
+}
+
+.header .navbar a:hover{
+    background:var(--dark-color);
+}
+
+body.popupview {
+    height: 90%;
+    position: relative;
+    width: fit-content;
+    z-index: 1000;
+    font-size: medium;
+}
+
+img{
+    width: 125px;
+    height: 170px;
+}
+table{
+    table-layout: fixed;
+
+}
+td{
+    border: 1px solid indigo;
+    width: 200px;
+    overflow: auto;
+}
+.unfollow{
+    text-align: center;
+    width: 100px
+}
+.rating{
+    color:black;
+    font-size: 24px;
+}

@@ -12,8 +12,8 @@
             <table class="follow">
             {% for followed_user in all_followed_users %}
                 <tr>
-                    <td>{{ followed_user.0 }}</td>
-                    <td><a href="{% url 'unfollow_user' followed_user.0 %}">Unfollow</a></td>
+                    <td class="username">{{ followed_user.0 }}</td>
+                    <td class="unfollow"><a href="{% url 'unfollow_user' followed_user.0 %}">Unfollow</a></td>
                 </tr>
             {% endfor %}
             </table>

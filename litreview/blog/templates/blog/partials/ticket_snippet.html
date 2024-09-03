@@ -1,0 +1,10 @@
+{% load blog_extras %}
+    <hr>
+
+    <h4>{% get_poster_display ticket.user %} requested a review. </h4>
+    <h4>{{ ticket.title }}</h4>
+    <p>{{ ticket.time_created }}</p>
+    <p>{{ ticket.description }}</p>
+    {% if ticket.image %}
+        <img src="{{ ticket.image.url }}" alt="" class="book-img">
+    {% endif %}

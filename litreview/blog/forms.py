@@ -8,6 +8,10 @@ class TicketForm(forms.ModelForm):
         fields = ['title', 'description', 'image']
 
 
+class DeleteTicketForm(forms.Form):
+    delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
+
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = models.Review

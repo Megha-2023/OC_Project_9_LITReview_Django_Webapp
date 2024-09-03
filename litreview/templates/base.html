@@ -2,19 +2,26 @@
 <html>
     <head>
         <title>LITReview</title>
-        </title>
         <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css" />
     </head>
     <body>
-        <h1>LITReview</h1>
-        {% if user.is_authenticated %}
-        <nav>
-            <a href="{% url 'home' %}">Feed</a>
-            <a href="">Posts</a>
-            <a href="{% url 'follow_users' %}">Following</a>
-            <a href="{% url 'logout' %}">Log Out ({{request.user }})</a>
-          </nav>
-        {% endif %}
+        <header class="header">
+            
+            <div class="header-1">
+                <h1>LITReview</h1>
+            
+                {% if user.is_authenticated %}
+                <p class="username">Hello, {{ request.user }}</p>
+                <nav class="navbar">
+                    <a href="{% url 'home' %}">Feed</a>
+                    <a href="{% url 'own_posts' %}">Posts</a>
+                    <a href="{% url 'follow_users' %}">Following</a>
+                    <a href="{% url 'logout' %}">Log Out</a>
+                </nav>
+                {% endif %}
+                
+            </div>
+        </header>
         {% block content %}{% endblock content %}
     </body>
 </html>
