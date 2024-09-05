@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.core.paginator import Paginator
 from itertools import chain
 from . import forms
 from . import models
@@ -29,7 +30,12 @@ def home_page(request):
         key=lambda instance: instance.time_created,
         reverse=True
     )
-    context = {'posts': posts,
+
+    paginator = Paginator(posts, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'page_obj': page_obj,
                'not_reviewed_by_user': not_reviewed_by_user}
     
     return render(request, 'blog/home.html', context=context)
@@ -151,17 +157,45 @@ def own_posts(request):
 
 
 @login_required
-def edit_ticket(request, tid):
-    ticket = get_object_or_404(models.Ticket, id=tid)
-    edit_form = forms.TicketForm(instance=ticket)
-    # delete_form = forms.DeleteTicketForm()
-    if request.method == 'POST':
-        edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
-        if edit_form.is_valid():
-            edit_form.save()
-            return redirect('own_posts')
+def edit_(request, type_of_model: str, tid: int):
+    if type_of_model == 'Ticket':
+        ticket = get_object_or_404(models.Ticket, id=tid)
+        ticket_form = forms.TicketForm(instance=ticket)
+        
+        if request.method == 'POST':
+            
+            ticket_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
+            if ticket_form.is_valid():
+                ticket_form.save()
+                return redirect('own_posts')
+        context = {'ticket_form': ticket_form,
+                'ticket': ticket,
+                }
+    
+    if type_of_model == 'Review':
+        review = get_object_or_404(models.Review, id=tid)
+        review_form = forms.ReviewForm(instance=review)
+        ticket = get_object_or_404(models.Ticket, id=review.ticket_id)
 
-    context = {'edit_form': edit_form,
-               'ticket': ticket}
-
+        if request.method == 'POST':
+            review_form = forms.ReviewForm(request.POST, request.FILES, instance=review)
+            ticket = get_object_or_404(models.Ticket, id=review.ticket_id)
+            if review_form.is_valid():
+                review_form.save()
+                return redirect('own_posts')
+            
+        context = {'review_form': review_form,
+                   'ticket': ticket}
+            
     return render(request, 'blog/edit_ticket.html', context=context)
+
+
+@login_required
+def delete_(request, type_of_model: str, tid: int):
+    ticket = get_object_or_404(models.Ticket, id=tid)
+    if request.method == 'POST':
+        ticket.delete()
+        return redirect('own_posts')
+    
+    return render(request, 'blog/delete_ticket.html', {'ticket': ticket})
+

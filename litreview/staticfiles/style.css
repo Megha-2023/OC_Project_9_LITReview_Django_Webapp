@@ -42,19 +42,20 @@ body{
 }
 .signup-form{
     margin: auto;
-    border: 2px solid black;
+    /*border: 2px solid black;
     width: 80%;
-    text-align: center;
+    text-align: center;*/
 }
 h2{
     display: inline-block;
     color:rgb(78, 56, 31);
     text-align: center;
+    justify-content: center;
 }
 button{
     position: relative;
     width:max-content;
-    height: 50px;
+    height: 40px;
     color: antiquewhite;
     border-radius: 20%;
     font-size: medium;
@@ -85,22 +86,18 @@ button:hover{
   outline:none;
   padding-left:10px;
 }
-/*.username{
-    color:#301702;
-    display: inline-block;
-    padding:1.2rem;
-    font-size: 25px;
-}*/
 .header .navbar{
-    display: inline-block;
     padding: 0px 20px;
-    text-align: right;
+    display: flex;
+    flex:2;
     overflow: hidden;
-    margin-left: 400px;
+    justify-content: right;
+    align-items: right;
+    /*margin-left: 400px;*/
 }
 .header .navbar a{
     color:#301702;
-    display: inline-block;
+    display: flex;
     padding-left: 30px;
     font-size: 25px;
     transition: all 0.3s ease 0s;
@@ -115,6 +112,12 @@ body.popupview {
     width: fit-content;
     z-index: 1000;
     font-size: medium;
+}
+.tickets-page{
+    width: 90%;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
 }
 img{
     width: 125px;

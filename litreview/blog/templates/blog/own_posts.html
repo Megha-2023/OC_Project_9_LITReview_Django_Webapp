@@ -8,11 +8,14 @@
 <div class="grid-container">
     {% for instance in posts %}
         {% if instance|model_type == 'Ticket' %}
+            
             <div class="post">
                 {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}
             </div>
-            <button onclick="location.href='{% url 'edit_ticket' instance.id %}'">Edit</button>
-            <button onclick="location.href='{% url 'delete_ticket' instance.id %}'">Delete</button>
+            
+                <button onclick="location.href='{% url 'edit_' type_of_model='Ticket' tid=instance.id %}'">Edit</button>
+                <button onclick="location.href='{% url 'delete_' type_of_model='Ticket' tid=instance.id %}'">Delete</button>
+            
         {% elif instance|model_type == 'Review' %}
             <div class="post">
                 <hr>
@@ -39,8 +42,8 @@
                     {% endif %}
                 </section>
                 -----------------------------------------
-                <button onclick="">Edit</button>
-                <button onclick="">Delete</button>
+                <button onclick="location.href='{% url 'edit_' type_of_model='Review' tid=instance.id %}'">Edit</button>
+                <button onclick="location.href='{% url 'delete_' type_of_model='Review' tid=instance.id %}'">Delete</button>
         {% endif %}
     
     {% endfor %}

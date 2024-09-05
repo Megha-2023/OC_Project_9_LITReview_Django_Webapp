@@ -17,8 +17,8 @@ blog_patterns = [path('ticket/', blog.views.create_ticket, name='create_ticket')
                  path('post_review/<int:tid>', blog.views.post_review_to_ticket, name='post_review_to_ticket'),
                  path('follow_users/', blog.views.follow_users, name='follow_users'),
                  path('my_posts/', blog.views.own_posts, name='own_posts'),
-                 path('my_posts/<int:tid>/edit_ticket', blog.views.edit_ticket, name='edit_ticket'),
-                 path('my_posts/<int:tid>/delete_ticket', blog.views.edit_ticket, name='delete_ticket'),
+                 path('my_posts/edit_/<str:type_of_model>/<int:tid>/', blog.views.edit_, name='edit_'),
+                 path('my_posts/delete_/<str:type_of_model>/<int:tid>/', blog.views.delete_, name='delete_'),
                  path('unfollow_user/<str:user_name>/', blog.views.unfollow_user, name='unfollow_user')]
 
 

@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import FileInput
 from . import models
 
 
@@ -6,6 +7,9 @@ class TicketForm(forms.ModelForm):
     class Meta:
         model = models.Ticket
         fields = ['title', 'description', 'image']
+        widgets = {
+            'image': FileInput(),
+        }
 
 
 class DeleteTicketForm(forms.Form):

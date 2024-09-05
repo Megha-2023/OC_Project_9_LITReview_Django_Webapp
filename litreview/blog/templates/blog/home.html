@@ -3,48 +3,66 @@
 {% load blog_extras %}
 {% block content %} 
 {% if user.is_authenticated %}
+<div class="tickets-page">    
+    <h1>Your Feed</h1>
+    <p><button onclick="location.href='{% url 'create_ticket' %}'">Request a Review</button>
+       <button onclick="location.href='{% url 'create_ticket' post_review=True %}'">Post a Review</button></p>
     
-    <h2>Your Feed</h2>
-    <button onclick="location.href='{% url 'create_ticket' %}'">Request a Review</button>
-    <button onclick="location.href='{% url 'create_ticket' post_review=True %}'">Post a Review</button>
-
     <div class="grid-container">
-    {% for instance in posts %}
-        {% if instance|model_type == 'Ticket' %}
-            <div class="post">
-                {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}
-                {% if instance in not_reviewed_by_user %}
-                    <button onclick="location.href='{% url 'post_review_to_ticket' tid=instance.id %}'">Post a Review</button>
-                {% endif %}
-            </div>
-        {% elif instance|model_type == 'Review' %}
-            <div class="post">
-                <hr>
-                <h4>{% get_poster_display instance.user %} posted a review</h4>
-                <p>{{ instance.time_created }}</p>
-                {{ instance.headline }} -
-                <div class="rating"> 
-                {% for star in "*****" %}
-                    {% if forloop.counter <= instance.rating %}
-                        {% bs_icon 'star-fill' %}
-                    {% else %}
-                        {% bs_icon 'star' %}
+        <div class="card">
+            {% for instance in page_obj %}
+                {% if instance|model_type == 'Ticket' %}
+                
+                    {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}
+                    {% if instance in not_reviewed_by_user %}
+                        <button onclick="location.href='{% url 'post_review_to_ticket' tid=instance.id %}'">Post a Review</button>
                     {% endif %}
                 
-                {% endfor %}
-                </div>
-                <p>{{ instance.body }}</p>
-                -----------------------------------------
-                <section>
-                    Ticket - {{ instance.ticket.user }}
-                    <p>{{ instance.ticket.title }}</p>
-                    {% if instance.ticket.image %}
-                        <img src="media/{{ instance.ticket.image }}" alt="" class="book-img">
-                    {% endif %}
-                </section>
-                -----------------------------------------
-        {% endif %}
+                {% elif instance|model_type == 'Review' %}
+                
+                    <hr>
+                    <h4>{% get_poster_display instance.user %} posted a review</h4>
+                    <p>{{ instance.time_created }}</p>
+                    {{ instance.headline }} -
+                    <div class="rating"> 
+                    {% for star in "*****" %}
+                        {% if forloop.counter <= instance.rating %}
+                            {% bs_icon 'star-fill' %}
+                        {% else %}
+                            {% bs_icon 'star' %}
+                        {% endif %}
+                    
+                    {% endfor %}
+                    </div>
+                    <p>{{ instance.body }}</p>
+                    -----------------------------------------
+                    <section>
+                        Ticket - {{ instance.ticket.user }}
+                        <p>{{ instance.ticket.title }}</p>
+                        {% if instance.ticket.image %}
+                            <img src="media/{{ instance.ticket.image }}" alt="" class="book-img">
+                        {% endif %}
+                    </section>
+                    -----------------------------------------
+            {% endif %}
+        </div>
     </div>
     {% endfor %}
-{% endif %} 
+</div>
+<span>
+    {% if page_obj.has_previous %}
+        <a href="?page=1">« first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+    <span>
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last »</a>
+    {% endif %}
+</span>
+
+{% endif %}
+
 {% endblock content %}
