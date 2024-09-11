@@ -14,7 +14,7 @@
             </div>
             
                 <button onclick="location.href='{% url 'edit_' type_of_model='Ticket' tid=instance.id %}'">Edit</button>
-                <button onclick="location.href='{% url 'delete_' type_of_model='Ticket' tid=instance.id %}'">Delete</button>
+                <button onclick="location.href='{% url 'delete_confirm' type_of_model='Ticket' tid=instance.id %}'">Delete</button>
             
         {% elif instance|model_type == 'Review' %}
             <div class="post">
@@ -43,7 +43,7 @@
                 </section>
                 -----------------------------------------
                 <button onclick="location.href='{% url 'edit_' type_of_model='Review' tid=instance.id %}'">Edit</button>
-                <button onclick="location.href='{% url 'delete_' type_of_model='Review' tid=instance.id %}'">Delete</button>
+                <button onclick="location.href='{% url 'delete_confirm' type_of_model='Review' tid=instance.id %}'">Delete</button>
         {% endif %}
     
     {% endfor %}

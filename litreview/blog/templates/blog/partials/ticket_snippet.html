@@ -1,10 +1,14 @@
 {% load blog_extras %}
-    <hr>
 
-    <h4>{% get_poster_display ticket.user %} requested a review. </h4>
-    <h4>{{ ticket.title }}</h4>
-    <p>{{ ticket.time_created }}</p>
-    <p>{{ ticket.description }}</p>
-    {% if ticket.image %}
-        <img src="{{ ticket.image.url }}" alt="" class="book-img">
-    {% endif %}
+    <div class="grid-container-element">
+        <div class="child-element ele1"><h4>{% get_poster_display ticket.user %} requested a review.</h4></div>
+        <div class="child-element ele2">{{ ticket.time_created }}</div>
+        <div class="child-element ele3">
+            <h5>{{ ticket.title }}</h5>
+            <p>
+            {{ ticket.description }}</p>
+            {% if ticket.image %}
+                <img src="{{ ticket.image.url }}" alt="" class="book-img">
+            {% endif %}
+        </div>
+    </div>

@@ -31,5 +31,10 @@
                 window.confirm(" {{ followed_user}} does not exist.")
             </script>
         {% endif %}
+        {% if already_follows %}
+            <script>
+                window.confirm(" You already follow the User : {{ followed_user}} ")
+            </script>
+        {% endif %}
     </form>
 {% endblock content %}

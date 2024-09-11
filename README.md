@@ -6,7 +6,7 @@ The project is a webapp which enables a community of users to publish reviews on
 
 ### 1. Clone the Repository
 
-First, clone this repository to your local machine. Then open command prompt from inside the cloned repository
+First, clone this repository to your local machine. Then navigate inside the folder litreview and open command prompt from inside the cloned repository
 
 ### 2. Create Virtual Environment
 

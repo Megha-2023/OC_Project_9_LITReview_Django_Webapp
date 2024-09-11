@@ -3,11 +3,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Nova+Round&display=swap");
 body{
     margin: 0 auto;
+    align-items: center;
     justify-content: center;
     box-sizing: border-box;
     scroll-behavior: smooth;
     font-family: "Nova Round", system-ui;
-    background-color:antiquewhite;
+    background-color:rgb(243, 235, 225);
 }
 .header{
     background-color:darksalmon;
@@ -113,15 +114,45 @@ body.popupview {
     z-index: 1000;
     font-size: medium;
 }
-.tickets-page{
+.home_page{
     width: 90%;
     text-align: center;
+    justify-content: center;
     margin: auto;
     padding: 10px;
+    justify-self: center;
+}
+.grid-container-element { 
+    display: grid;
+    background-color: rgb(238, 208, 183);
+    grid-template-columns: 1fr 1fr; 
+    grid-gap: 10px; 
+    border: 2px solid rgb(105, 50, 10); 
+    width: 55%;
+    align-items: center;
+    text-align: center;
+    justify-self: center;
+    margin: auto;
+    margin-bottom: 9px;
+}
+.grid-container-element:hover{
+    transition: all 0.5s ease 0s;
+}
+.child-element { 
+    margin: 5px;
+    align-items: center;
+}
+.ele3, .ele4{
+    grid-column: span 2; 
+}
+.ele4{
+    place-self: center;
+    border: 2px dotted #3b2119;
 }
 img{
     width: 125px;
     height: 170px;
+    border: 1px solid brown;
 }
 table{
     table-layout: fixed;
@@ -138,5 +169,5 @@ td{
 }
 .rating{
     color:black;
-    font-size: 24px;
+    font-size: 18px;
 }
