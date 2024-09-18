@@ -10,16 +10,14 @@
             <h1>LITReview </h1>
                 {% if user.is_authenticated %}
                 <h2>
-                &nbsp;(Hello, {{ request.user }}!)
-            </h2>
-                    
-                    <nav class="navbar">
-                        <a href="{% url 'home' %}">Feed</a>
-                        <a href="{% url 'own_posts' %}">Posts</a>
-                        <a href="{% url 'follow_users' %}">Following</a>
-                        <a href="{% url 'logout' %}">LogOut</a>
-                    </nav>
-                
+                    &nbsp;(Hello, {{ request.user }}!)
+                </h2>
+                <nav class="navbar">
+                    <a href="{% url 'home' %}">Feed</a>
+                    <a href="{% url 'own_posts' %}">Posts</a>
+                    <a href="{% url 'follow_users' %}">Following</a>
+                    <a href="{% url 'logout' %}">LogOut</a>
+                </nav>
             {% endif %}
         </header>
         {% block content %}{% endblock content %}

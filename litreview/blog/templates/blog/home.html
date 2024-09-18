@@ -9,56 +9,54 @@
     <button onclick="location.href='{% url 'create_ticket' %}'">Request a Review</button>
     <button onclick="location.href='{% url 'create_ticket' post_review=True %}'">Post a Review</button>
     </p>
-    
-    
-            {% for instance in page_obj %}
-                {% if instance|model_type == 'Ticket' %}
-                
-                    {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}
-                    {% if instance in not_reviewed_by_user %}
-                        <button onclick="location.href='{% url 'post_review_to_ticket' tid=instance.id %}'">Post a Review</button>
-                    {% endif %}
-                
-                {% elif instance|model_type == 'Review' %}
-                    <div class="grid-container-element">
-                        <div class="child-element ele1"><h4>{% get_poster_display instance.user %} posted a review</h4></div>
-                        <div class="child-element ele2">{{ instance.time_created }}</div>
-            
-                        <div class="child-element ele3">
-                            <div class="rating">
-                                {{ instance.headline }} -
-                                {% for star in "*****" %}
-                                    {% if forloop.counter <= instance.rating %}
-                                        {% bs_icon 'star-fill' %}
-                                    {% else %}
-                                        {% bs_icon 'star' %}
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <p>{{ instance.body }}</p>
+    {% for instance in page_obj %}
+        {% if instance|model_type == 'Ticket' %}
+            <div class="grid-container-element">
+                {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}
+                {% if instance in not_reviewed_by_user %}
+                <div class="child-element ele2"><button onclick="location.href='{% url 'post_review_to_ticket' tid=instance.id %}'">Post a Review</button></div>
+                {% endif %}
+            </div>
+            {% elif instance|model_type == 'Review' %}
+                <div class="grid-container-element">
+                    <div class="child-element ele1"><h4>{% get_poster_display instance.user %} posted a review</h4></div>
+                    <div class="child-element ele2">{{ instance.time_created }}</div>
+        
+                    <div class="child-element ele3">
+                        <div class="rating">
+                            {{ instance.headline }} -
+                            {% for star in "*****" %}
+                                {% if forloop.counter <= instance.rating %}
+                                    {% bs_icon 'star-fill' %}
+                                {% else %}
+                                    {% bs_icon 'star' %}
+                                {% endif %}
+                            {% endfor %}
                         </div>
-                    
-                        <div class="child-element ele4">
-                            <h4>Ticket - {{ instance.ticket.user }} </h4>
-                            <p>{{ instance.ticket.title }}</p>
-                            {% if instance.ticket.image %}
-                                <img src="media/{{ instance.ticket.image }}" alt="" class="book-img">
-                            {% endif %}
-                        </div>
+                        <p>{{ instance.body }}</p>
                     </div>
-            {% endif %}
+                
+                    <div class="child-element ele4">
+                        <h4>Ticket - {{ instance.ticket.user }} </h4>
+                        <p>{{ instance.ticket.title }}</p>
+                        {% if instance.ticket.image %}
+                            <img src="media/{{ instance.ticket.image }}" alt="" class="book-img">
+                        {% endif %}
+                    </div>
+                </div>
+        {% endif %}
     {% endfor %}
     <span>
         {% if page_obj.has_previous %}
-            <a href="?page=1">« First</a>
-            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            <a href="?page=1"><h4>« First, </a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</h4></a>
         {% endif %}
         <span>
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        <h4>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</h4>
         </span>
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Last »</a>
+            <a href="?page={{ page_obj.next_page_number }}"><h4>Next, </a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last »</h4></a>
         {% endif %}
     </span>
 

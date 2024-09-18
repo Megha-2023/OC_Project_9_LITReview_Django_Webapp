@@ -1,31 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Follow New User</h2>
-    
+<div class="home_page">
+    <h1>Follow New User</h1>
     <form method="post" enctype="multipart/form-data">
         <input type="text" name="followed_user" id="followed_user">
         {% csrf_token %}
         <button type="submit">Follow</button>
-    
-        
-            <h3>Following</h3>
-            <table class="follow">
-            {% for followed_user in all_followed_users %}
+        <h3>Following</h3>
+        <table class="follow">
+        {% for followed_user in all_followed_users %}
+            <tr>
+                <td class="username">{{ followed_user.0 }}</td>
+                <td class="unfollow"><a href="{% url 'unfollow_user' followed_user.0 %}">Unfollow</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <h3>Followers</h3>
+        <table class="follow">
+            {% for following_user in all_following_users %}
                 <tr>
-                    <td class="username">{{ followed_user.0 }}</td>
-                    <td class="unfollow"><a href="{% url 'unfollow_user' followed_user.0 %}">Unfollow</a></td>
+                    <td>{{ following_user.0 }}</td>
                 </tr>
             {% endfor %}
             </table>
-
-            <h3>Followers</h3>
-            <table class="follow">
-                {% for following_user in all_following_users %}
-                    <tr>
-                        <td>{{ following_user.0 }}</td>
-                    </tr>
-                {% endfor %}
-                </table>
         {% if not user_exists %}
             <script>
                 window.confirm(" {{ followed_user}} does not exist.")
@@ -37,4 +35,5 @@
             </script>
         {% endif %}
     </form>
+</div>
 {% endblock content %}

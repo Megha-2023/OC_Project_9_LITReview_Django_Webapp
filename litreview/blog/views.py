@@ -8,13 +8,17 @@ from . import forms
 from . import models
 from authentication.models import User
 
+
 @login_required
 def home_page(request):
+    """ Function to display tickest and reviews of user's own and to whom they follow"""
     followed_user_ids = models.UserFollows.objects.values_list('followed_user__id').filter(
-                                                                            following_user=request.user)
-    tickets = models.Ticket.objects.filter(Q(user_id__in=followed_user_ids) | Q(user_id=request.user.id))
-    reviews = models.Review.objects.filter(Q(user_id__in=followed_user_ids) | Q(user_id=request.user.id))
-    
+                                                                        following_user=request.user)
+    tickets = models.Ticket.objects.filter(Q(user_id__in=followed_user_ids) |
+                                           Q(user_id=request.user.id))
+    reviews = models.Review.objects.filter(Q(user_id__in=followed_user_ids) |
+                                           Q(user_id=request.user.id))
+
     not_reviewed_by_user = []
     for ticket in tickets:
         user_flag = None
@@ -25,7 +29,7 @@ def home_page(request):
                 user_flag = 1
         if user_flag is None:
             not_reviewed_by_user.append(ticket)
-    
+
     posts = sorted(
         chain(tickets, reviews),
         key=lambda instance: instance.time_created,
@@ -44,12 +48,13 @@ def home_page(request):
 
 @login_required
 def create_ticket(request, post_review=None):
+    """ Function to create ticket """
     ticket_form = forms.TicketForm()
     review_form = forms.ReviewForm()
     if post_review == 'True':
         context = {'post_review': post_review,
-                    'ticket_form': ticket_form,
-                    'review_form': review_form}
+                   'ticket_form': ticket_form,
+                   'review_form': review_form}
     else:
         context = {'ticket_form': ticket_form}
 
@@ -72,6 +77,7 @@ def create_ticket(request, post_review=None):
 
 @login_required
 def post_review_to_ticket(request, tid):
+    """Function to post a review in response to ticket"""
     review_form = forms.ReviewForm()
     if tid:
         ticket = get_object_or_404(models.Ticket, id=tid)
@@ -86,18 +92,19 @@ def post_review_to_ticket(request, tid):
             review.ticket_id = ticket.id
             review.save()
         return redirect('home')
- 
+
     return render(request, 'blog/post_review_to_ticket.html', context=context)
 
 
 @login_required
 def follow_users(request):
+    """ Function to follow users """
     # get usernames of all users who follows current user
-    all_following_usernames = models.UserFollows.objects.values_list('following_user__username').filter(
-                                                                            followed_user=request.user)
+    all_following_usernames = models.UserFollows.objects.values_list(
+        'following_user__username').filter(followed_user=request.user)
     # get usernames of all users to whom current user follows
-    all_followed_usernames = models.UserFollows.objects.values_list('followed_user__username').filter(
-                                                                            following_user=request.user)
+    all_followed_usernames = models.UserFollows.objects.values_list(
+        'followed_user__username').filter(following_user=request.user)
 
     user_exists = True
     context = {
@@ -118,10 +125,11 @@ def follow_users(request):
                         followed_user=followed_user_obj).exists()
             # if not, then save entry in table
             if not is_following:
-                user_follow_obj = models.UserFollows(following_user=request.user, followed_user=followed_user_obj)
+                user_follow_obj = models.UserFollows(following_user=request.user,
+                                                    followed_user=followed_user_obj)
                 user_follow_obj.save()
             else:
-                # if already follow, show alert box 
+                # if already follow, show alert box
                 context = {
                     'user_exists': user_exists,
                     'already_follows': True,
@@ -138,12 +146,13 @@ def follow_users(request):
                 'all_followed_users': all_followed_usernames,
                 'all_following_users': all_following_usernames
             }
-    
+
     return render(request, 'blog/follow_users.html', context=context)
 
 
 @login_required
 def unfollow_user(request, user_name):
+    """ Function to unfollow any user"""
     if user_name:
         user_id = User.objects.get(username=user_name).id
         models.UserFollows.objects.filter(followed_user=user_id).delete()
@@ -153,6 +162,7 @@ def unfollow_user(request, user_name):
 
 @login_required
 def own_posts(request):
+    """ Function to display user's own posts"""
     tickets = models.Ticket.objects.filter(Q(user_id=request.user.id))
     reviews = models.Review.objects.filter(Q(user_id=request.user.id))
 
@@ -162,12 +172,13 @@ def own_posts(request):
         reverse=True
     )
     context = {'posts': posts}
-    
+
     return render(request, 'blog/own_posts.html', context=context)
 
 
 @login_required
 def edit_(request, type_of_model: str, tid: int):
+    """Function to edit Ticket/Review """
     if type_of_model == 'Ticket':
         ticket = get_object_or_404(models.Ticket, id=tid)
         ticket_form = forms.TicketForm(instance=ticket)
@@ -201,18 +212,19 @@ def edit_(request, type_of_model: str, tid: int):
 
 @login_required
 def ask_delete_confirm(request, type_of_model: str, tid: int):
+    """ Function ask confirmation to delete Ticket/Review"""
     if type_of_model == 'Ticket':
         ticket = get_object_or_404(models.Ticket, id=tid)
         return render(request, 'blog/delete_ticket.html', {'ticket': ticket})
-    
+
     if type_of_model == 'Review':
         review = get_object_or_404(models.Review, id=tid)
         return render(request, 'blog/delete_ticket.html', {'review': review})
-    
 
 
 @login_required
 def delete_(request, type_of_model: str, tid: int):
+    """ Function actually deletes Ticket/Review"""
     if type_of_model == 'Ticket':
         ticket = get_object_or_404(models.Ticket, id=tid)
         # if request.method == 'POST':
@@ -222,11 +234,11 @@ def delete_(request, type_of_model: str, tid: int):
                 os.remove(ticket.image.path)
         ticket.delete()
         return redirect('own_posts')
-     
+
     if type_of_model == 'Review':
         review = get_object_or_404(models.Review, id=tid)
         # if request.method == 'POST':
         review.delete()
         return redirect('own_posts')
-    
+
     return render(request, 'blog/delete_ticket.html')

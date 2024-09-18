@@ -2,21 +2,22 @@
 {% block content %}
 {% if ticket %}
     <h1>Delete Ticket</h1>
-    
-    <p>Are you sure want to delete this Ticket?: {{ ticket.title }} {{ img_path }}</p>
-
+    <div class="delete-form">
+        <h4>Are you sure want to delete this Ticket?: {{ ticket.title }} {{ img_path }}</h4>
         {% csrf_token %}
         <input type="submit" value="Delete" onclick="location.href='{% url 'delete_' type_of_model='Ticket' tid=ticket.id %}'">
         <input type="button" value="Cancel" onclick="location.href='{% url 'own_posts' %}'">
-
+    </div>
 {% endif %}
 {% if review %}
-    <h1>Delete Review</h1>
 
-    <p>Are you sure want to delete this Review?: {{ review.headline }}</p>
-    {% csrf_token %}
-    <input type="submit" value="Delete" onclick="location.href='{% url 'delete_' type_of_model='Review' tid=review.id %}'">
-    <input type="button" value="Cancel" onclick="location.href='{% url 'own_posts' %}'">
+    <h1>Delete Review</h1>
+    <div class="delete-form">
+        <p>Are you sure want to delete this Review?: {{ review.headline }}</p>
+        {% csrf_token %}
+        <input type="submit" value="Delete" onclick="location.href='{% url 'delete_' type_of_model='Review' tid=review.id %}'">
+        <input type="button" value="Cancel" onclick="location.href='{% url 'own_posts' %}'">
+    </div>
 {% endif %}
 {% endblock content %}
 

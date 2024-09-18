@@ -4,7 +4,9 @@ from . import models
 
 
 class TicketForm(forms.ModelForm):
+    """ Class to create Ticket form"""
     class Meta:
+        """ meta class"""
         model = models.Ticket
         fields = ['title', 'description', 'image']
         widgets = {
@@ -12,12 +14,10 @@ class TicketForm(forms.ModelForm):
         }
 
 
-class DeleteTicketForm(forms.Form):
-    delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
-
-
 class ReviewForm(forms.ModelForm):
+    """ Class to create Review form"""
     class Meta:
+        """ meta class"""
         model = models.Review
         CHOICES = [
             (i, i) for i in range(0, 6)
@@ -29,6 +29,8 @@ class ReviewForm(forms.ModelForm):
 
 
 class FollowUsersForm(forms.ModelForm):
+    """ Class to create user folllow form"""
     class Meta:
+        """ meta class"""
         model = models.UserFollows
         fields = ['followed_user']

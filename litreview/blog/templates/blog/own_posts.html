@@ -2,52 +2,56 @@
 {% load bootstrap_icons %}
 {% load blog_extras %}
 {% block content %} 
+<div class="home_page">
 {% if user.is_authenticated %}
-
-<h2>Your Posts</h2>
+<h1>Your Posts</h1>
 <div class="grid-container">
     {% for instance in posts %}
         {% if instance|model_type == 'Ticket' %}
-            
-            <div class="post">
+            <div class="grid-container-element">
                 {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}
-            </div>
-            
-                <button onclick="location.href='{% url 'edit_' type_of_model='Ticket' tid=instance.id %}'">Edit</button>
-                <button onclick="location.href='{% url 'delete_confirm' type_of_model='Ticket' tid=instance.id %}'">Delete</button>
-            
-        {% elif instance|model_type == 'Review' %}
-            <div class="post">
-                <hr>
-                <h4>{% get_poster_display instance.user %} posted a review</h4>
-                <p>{{ instance.time_created }}</p>
-                {{ instance.headline }} -
-                <div class="rating"> 
-                {% for star in "*****" %}
-                    {% if forloop.counter <= instance.rating %}
-                        {% bs_icon 'star-fill' %}
-                    {% else %}
-                        {% bs_icon 'star' %}
-                    {% endif %}
-                
-                {% endfor %}
+                <div class="child-element ele3">
+                    <button onclick="location.href='{% url 'edit_' type_of_model='Ticket' tid=instance.id %}'">Edit</button>
+                    <button onclick="location.href='{% url 'delete_confirm' type_of_model='Ticket' tid=instance.id %}'">Delete</button>
                 </div>
-                <p>{{ instance.body }}</p>
-                -----------------------------------------
-                <section>
-                    Ticket - {{ instance.ticket.user }}
+            </div>
+        {% elif instance|model_type == 'Review' %}
+            <div class="grid-container-element">
+                <div class="child-element ele1">
+                    <h4>{% get_poster_display instance.user %} posted a review</h4>
+                </div>
+                <div class="child-element ele2">{{ instance.time_created }}</div>
+                <div class="child-element ele3">
+                    <div class="rating">
+                        {{ instance.headline }} -
+                        {% for star in "*****" %}
+                            {% if forloop.counter <= instance.rating %}
+                                {% bs_icon 'star-fill' %}
+                            {% else %}
+                                {% bs_icon 'star' %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <p>{{ instance.body }}</p>
+                </div>
+            
+                <div class="child-element ele4">
+                    <h4>Ticket - {{ instance.ticket.user }} </h4>
                     <p>{{ instance.ticket.title }}</p>
                     {% if instance.ticket.image %}
                         <img src="{{ instance.ticket.image.url }}" alt="" class="book-img">
                     {% endif %}
-                </section>
-                -----------------------------------------
-                <button onclick="location.href='{% url 'edit_' type_of_model='Review' tid=instance.id %}'">Edit</button>
-                <button onclick="location.href='{% url 'delete_confirm' type_of_model='Review' tid=instance.id %}'">Delete</button>
+                </div>
+                <div class="child-element ele3">
+                    <button onclick="location.href='{% url 'edit_' type_of_model='Review' tid=instance.id %}'">Edit</button>
+                    <button onclick="location.href='{% url 'delete_confirm' type_of_model='Review' tid=instance.id %}'">Delete</button>
+                </div>
+            </div>    
         {% endif %}
     
     {% endfor %}
 </div>
     
-{% endif %} 
+{% endif %}
+</div>
 {% endblock content %}

@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Create a Review</h2>
-    <div>
-        You are posting in response to
+<div class="home_page">
+    <h1>Create a Review</h1>
+    <form method="post" enctype="multipart/form-data">
+    <div class="edit_form">
+        <div class="col-merge"><h3>You are posting in response to</h3></div>
+        <div class="ele4">
         {% include 'blog/partials/ticket_snippet.html' with ticket=ticket %}
-        <hr>
-        <h3>Review</h3>
-        <form action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ review_form.as_p }}
-            <input type="submit" value="Submit">
+        </div>
+        <div class="col-merge"><h3>Review</h3></div>
+        {% csrf_token %}
+        {% for field in review_form %}
+            <div class="col-1">{{ field.label }}:</div>    
+            <div class="col-2">{{ field }}</div>
+        {% endfor %}
+        <div class="col-1"><button type="submit">Save</button></div>
         </form>
     </div>
+</div>
 {% endblock content %}

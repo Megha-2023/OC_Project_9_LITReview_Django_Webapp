@@ -47,12 +47,24 @@ body{
     width: 80%;
     text-align: center;*/
 }
+h1{
+    text-align: center;
+}
 h2{
     display: inline-block;
     color:rgb(78, 56, 31);
     text-align: center;
     justify-content: center;
 }
+.delete-form{
+    border-radius: 5px;
+    border: 2px solid rgb(105, 50, 10); 
+    padding: 20px;
+    width: 75%;
+    margin: auto;
+}
+.delete-form input,
+.edit_form input[type="submit"], 
 button{
     position: relative;
     width:max-content;
@@ -63,6 +75,8 @@ button{
     background-color:#614239;
     font-weight: bold;
 }
+.delete-form input:hover,
+.edit_form input[type="submit"]:hover,
 button:hover{
     transition: all 0.3s ease 0s;
     font-size: larger;
@@ -77,7 +91,8 @@ button:hover{
     text-align: center;
 }
 .login-form input[type="text"],
-.login-form input[type="password"] {
+.login-form input[type="password"],
+.home_page input[type="text"]{
   width:200px;
   /*width: 80%;*/
   height: 30px;
@@ -148,19 +163,78 @@ body.popupview {
 .ele4{
     place-self: center;
     border: 2px dotted #3b2119;
+    border-spacing: 10px;
+}
+.edit_form{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-gap: 10px;
+    border-radius: 5px;
+    border: 2px solid rgb(105, 50, 10); 
+    background-color:  rgb(243, 222, 205);
+    padding: 15px;
+    width: 70%;
+    margin: auto;
+}
+
+.edit_form input[type="text"],
+.edit_form textarea
+{
+    width: 70%;
+    resize: vertical;
+    border-radius:5px;
+    border:2px solid #3b2119;
+    font-family: "Nova Round", system-ui;
+}
+.col-1{
+    width: 20%;
+    resize: vertical;
+    height: 30px;
+    font-family: "Nova Round", system-ui;
+    font-weight: bold;
+    text-align: right;
+}
+.col-2{
+    width: 70%;
+    text-align: left;
+    resize: horizontal;
+}
+.col-merge{
+    width: 100%;
+    grid-column: span 2;
+    place-self: center;
+    border-top: 1px solid rgb(32, 9, 9);
+    border-bottom: 1px solid rgb(32, 9, 9);
+}
+.follow{
+    
+    table-layout: auto;
+    border-radius: 5px;
+    border: 2px solid rgb(105, 50, 10); 
+   
+    padding: 15px;
+    width: 70%;
+    margin: auto;
 }
 img{
     width: 125px;
     height: 170px;
-    border: 1px solid brown;
+    border: 1px solid rgb(105, 50, 10);;
 }
-table{
-    table-layout: fixed;
 
+.follow a{
+    color:#8a4914;
+    font-size: 20px;
+    transition: all 0.3s ease 0s;
+    text-align: center;
+}
+.follow a:hover{
+    color:rgb(10, 10, 10);
 }
 td{
-    border: 1px solid indigo;
+    border: 1.5px solid rgb(105, 50, 10);
     width: 200px;
+    font-size: 20px;
     overflow: auto;
 }
 .unfollow{

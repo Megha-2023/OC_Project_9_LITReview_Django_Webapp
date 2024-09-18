@@ -1,20 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="home_page">
 {% if post_review == 'True' %}
-    <h2>Create a Review</h2>
+    <h1>Create a Review</h1>
 {% else %}
-    <h2>Create a Ticket</h2>
+    <h1>Create a Ticket</h1>
 {% endif %}
 <form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ ticket_form.as_p }}
-    
-    {% if post_review == 'True' %}
-        <hr>
-        <h3>Review</h3>
-        {{ review_form.as_p }}
-    {% endif %}
-    <input type="submit" value="Submit">
+    <div class="edit_form">
+        {% csrf_token %}
+        {% for field in ticket_form %}
+            <div class="col-1">{{ field.label }}:</div>
+            <div class="col-2">{{ field }}</div>                
+        {% endfor %}        
+        
+        {% if post_review == 'True' %}
+            <div class="col-merge"><h3>Review</h3></div>
+                {% for field in review_form %}
+                    <div class="col-1">{{ field.label }}:</div>    
+                    <div class="col-2">{{ field }}</div>
+                {% endfor %}            
+        {% endif %}
+        <div class="col-merge"><input type="submit" value="Submit"></div>
+    </div>
 </form>
-
+</div>
 {% endblock content %}
