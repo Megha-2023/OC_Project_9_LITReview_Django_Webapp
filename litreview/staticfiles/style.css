@@ -199,6 +199,13 @@ body.popupview {
     text-align: left;
     resize: horizontal;
 }
+#id_rating{
+    display: flex;
+}
+
+#id_rating label{
+    margin-right: 50px;
+}
 .col-merge{
     width: 100%;
     grid-column: span 2;
@@ -207,11 +214,9 @@ body.popupview {
     border-bottom: 1px solid rgb(32, 9, 9);
 }
 .follow{
-    
     table-layout: auto;
     border-radius: 5px;
-    border: 2px solid rgb(105, 50, 10); 
-   
+    border: 2px solid rgb(105, 50, 10);
     padding: 15px;
     width: 70%;
     margin: auto;
@@ -221,7 +226,6 @@ img{
     height: 170px;
     border: 1px solid rgb(105, 50, 10);;
 }
-
 .follow a{
     color:#8a4914;
     font-size: 20px;

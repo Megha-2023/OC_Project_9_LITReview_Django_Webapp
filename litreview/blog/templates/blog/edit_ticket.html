@@ -39,11 +39,20 @@
             </div>
             <div class="col-merge"><h3>Review</h3></div>
                 {% for field in review_form %}
-                    <div class="col-1">{{ field.label }}:</div>    
-                    <div class="col-2">{{ field }}</div>
+                <div class="col-1">{{ field.label }}:</div>
+                    {% if field.label == 'Rating' %}
+                        <div class="col-2">
+                            
+                           {{ review_form.rating }}
+                        </div>
+                    {% else %}
+                        <div class="col-2">{{ field }}</div>
+                    {% endif %}
                 {% endfor %}
+        
             <div class="col-1"><button type="submit">Save</button></div>
         </div>
+        
     </form>
 {% endif %}
 </div>
