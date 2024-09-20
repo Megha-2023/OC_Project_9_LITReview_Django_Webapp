@@ -9,6 +9,7 @@
     {% for instance in posts %}
         {% if instance|model_type == 'Ticket' %}
             <div class="grid-container-element">
+                <div class="child-element ele1"><h4>{% get_poster_display instance.user %} posted a Ticket.</h4></div>
                 {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}
                 <div class="child-element ele3">
                     <button onclick="location.href='{% url 'edit_' type_of_model='Ticket' tid=instance.id %}'">Edit</button>

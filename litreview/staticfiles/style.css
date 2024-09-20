@@ -43,6 +43,8 @@ body{
 }
 .signup-form{
     margin: auto;
+    margin: 0 auto;
+    width: 75%;
     /*border: 2px solid black;
     width: 80%;
     text-align: center;*/

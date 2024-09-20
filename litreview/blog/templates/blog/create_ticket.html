@@ -9,6 +9,9 @@
 <form action="" method="post" enctype="multipart/form-data">
     <div class="edit_form">
         {% csrf_token %}
+        {% if post_review == 'True' %}
+            <div class="col-merge"><h3>Book/Article</h3></div>
+        {% endif %}
         {% for field in ticket_form %}
             <div class="col-1">{{ field.label }}:</div>
             <div class="col-2">{{ field }}</div>                

@@ -12,6 +12,7 @@
     {% for instance in page_obj %}
         {% if instance|model_type == 'Ticket' %}
             <div class="grid-container-element">
+                <div class="child-element ele1"><h4>{% get_poster_display instance.user %} requested a review.</h4></div>
                 {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}
                 {% if instance in not_reviewed_by_user %}
                 <div class="child-element ele2"><button onclick="location.href='{% url 'post_review_to_ticket' tid=instance.id %}'">Post a Review</button></div>
